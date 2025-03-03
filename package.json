@@ -1,0 +1,26 @@
+{
+  "name": "movie-shelf-app",
+  "version": "1.0.0",
+  "description": "Track and rate your movies. Uses node.js, express.js, EJS, PosgreSQL, API CRUD",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erandime/movie-shelf-app.git"
+  },
+  "author": "Erandi Madawalagama",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erandime/movie-shelf-app/issues"
+  },
+  "homepage": "https://github.com/erandime/movie-shelf-app#readme",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "pg": "^8.13.3"
+  }
+}

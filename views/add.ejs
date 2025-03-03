@@ -1,0 +1,63 @@
+<%- include("partials/header") %>
+<img src="images/movies.jpg" id="mobileImage" alt="Cinema hall seats" class="img-fluid">
+<div class="content">
+<form class="row gy-4 gx-5 align-items-center">
+    <div class="col-lg-6">
+        <div class="input-group mb-3">
+            <span class="input-group-text">Movie</span>
+            <input type="text" class="form-control" placeholder="Enter Movie Name" required>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Release Date</span>
+            <input type="date" class="form-control" placeholder="DD/MM/YYYY">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Overview</span>
+            <textarea class="form-control" rows="3"></textarea>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Genre</span>
+            <input type="text" class="form-control" placeholder="Enter Genre" required>
+        </div>
+        <div class="mb-3">
+            <span class="form-label" for="formFile">Upload Image</span>
+            <input class="form-control" type="file" id="formFile" accept="image/*">
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="mb-3">
+            <label for="rating" class="form-label">Select Rating</label>
+            <select class="form-select" id="rating" required>
+                <option selected>Select a Rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Review</span>
+            <textarea class="form-control" rows="3" placeholder="Enter your review"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="watchStatus" class="form-label">Watch Status</label>
+            <select class="form-select" aria-label="Watch status" required>
+                <option selected>Select Watch Status</option>
+                <option value="1">Watched</option>
+                <option value="2">Currently Watching</option>
+                <option value="3">Have to Watch</option>
+            </select>
+        </div>       
+        <div class="input-group mb-3">
+            <span class="input-group-text">Watch Date</span>
+            <input type="date" class="form-control" placeholder="DD/MM/YYYY">
+        </div>
+        <div class=" mb-3">
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </div>
+    </div>   
+</form>
+</div>
+
+<%- include("partials/footer") %>

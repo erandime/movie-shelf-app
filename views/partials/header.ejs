@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Movie Shelf</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+
+<body>
+<!-- Top Navbar (Visible only on small screens) -->
+<nav class="navbar navbar-dark bg-dark d-lg-none">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">The Movie Shelf <i class="bi bi-film"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu"
+            aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mobileMenu">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/add" class="nav-link">Add / Update Movie</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/movies" class="nav-link">View Movie List</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Sidebar (Visible only on large screens) -->
+<div class="d-none d-lg-flex flex-column flex-shrink-0 p-3 text-bg-dark vh-100 sidebar" style="width: 280px;">
+    <span class="fs-5">The Movie Shelf</span>
+    <hr />
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a href="/" class="nav-link text-white">Home</a>
+        </li>
+        <li>
+            <a href="/add" class="nav-link text-white">Add / Update Movie</a>
+        </li>
+        <li>
+            <a href="/movies" class="nav-link text-white">View Movie List</a>
+        </li>
+    </ul>
+</div>
