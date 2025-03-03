@@ -1,12 +1,13 @@
 * {
     box-sizing: border-box;
 }
+
 .navbar {
     z-index: 2;
 }
 
 #myVideo {
-    margin-left: 280px;
+    margin-left: 280px;/*Provide space for sidebar on larger screens*/
     position: fixed;
     bottom: 0;
     width: calc(100vw - 280px);
@@ -15,39 +16,31 @@
 }
 
 .content {
-    margin-left: 280px;
+    margin-left: 280px;/*Provide space for sidebar on larger screens*/
     position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
+    overflow-y: auto;/*Enables scrolling when movie cards are added dynamically*/
     background: rgba(0, 0, 0, 0.5);
     color: #f1f1f1;
     width: calc(100vw - 280px);
     padding: 20px;
-    overflow-y: auto;
 }
+
 #mobileImage {
-    /* display: none; */
-    /* Hide image by default */
     position: fixed;
-        bottom: 0;
-        z-index: -2;
+    bottom: 0;    
     width: 100vw;
-    height: 100vh;
+    height: 100vh;/*Cover entire screen*/
+    z-index: -2;
     object-fit: cover;
 }
+
 .checked {
     color: orange;
 }
-/* .movies {
-    margin-left: 280px;
-    overflow-y: auto;
-    background: rgba(0, 0, 0, 0.5);
-    color: #f1f1f1;
-    width: calc(100vw - 280px);
-    padding: 20px;
-    min-height: 100vh;
-} */
+
 /* Adjust for mobile screens */
 @media (max-width: 991px) {
     .content {
@@ -60,10 +53,4 @@
              display: none;
              /* Hide video on small screens */
     }
-    
-    /* #mobileImage {
-             display: block;
-             // Show image on small screens 
-    } 
-    */
 }
