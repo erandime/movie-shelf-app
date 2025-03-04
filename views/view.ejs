@@ -1,79 +1,82 @@
 <%- include("partials/header") %>
     <img src="images/movies.jpg" id="mobileImage" alt="Cinema hall seats" class="img-fluid">
     <div class="content">
-        <form class="row gy-4 gx-5 align-items-center" action="/add" method="post">
+        <form class="row gy-4 gx-5 align-items-center">
             <div class="col-lg-6">
                 <div class="input-group mb-3">
                     <span class="input-group-text">Movie</span>
-                    <input type="text" name="movie_name" class="form-control" placeholder="Enter Movie Name" required>
+                    <input type="text" name="movie_name" class="form-control" placeholder="<%= movie_name %>" required>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Release Date(Optional)</span>
-                    <input type="date" name="release_date" class="form-control" placeholder="DD/MM/YYYY">
+                    <input type="date" name="release_date" class="form-control" value="<%= release_date ? release_date : '' %>">
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Overview(Optional)</span>
-                    <textarea name="overview" class="form-control" rows="3"></textarea>
+                    <textarea name="overview" class="form-control" rows="3"><%= overview ? overview : '' %></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="genre" class="form-label">Select Genre (Can Select Multiple)</label>
                     <select name="genre[]" class="form-select" id="genre" multiple required>
-                        <option value="Action">Action</option>
-                        <option value="Adventure">Adventure</option>
-                        <option value="Comedy">Comedy</option>
-                        <option value="Drama">Drama</option>
-                        <option value="Horror">Horror</option>
-                        <option value="Family">Family</option>
-                        <option value="Fantasy">Fantasy</option>
-                        <option value="Mystery">Mystery</option>
-                        <option value="Romance">Romance</option>
-                        <option value="Science Fiction">Sci-Fi</option>
-                        <option value="Thriller">Thriller</option>
-                        <option value="War">War</option>
+                        <option value="Action" <%= genre.includes('Action') ? 'selected': '' %>>Action</option>
+                        <option value="Adventure" <%= genre.includes('Adventure') ? 'selected': '' %>>Adventure</option>
+                        <option value="Comedy" <%= genre.includes('Comedy') ? 'selected': '' %>>Comedy</option>
+                        <option value="Drama" <%= genre.includes('Drama') ? 'selected': '' %>>Drama</option>
+                        <option value="Horror" <%= genre.includes('Horror') ? 'selected': '' %>>Horror</option>
+                        <option value="Family" <%= genre.includes('Family') ? 'selected': '' %>>Family</option>
+                        <option value="Fantasy" <%= genre.includes('Fantasy') ?'selected': '' %>>Fantasy</option>
+                        <option value="Mystery" <%= genre.includes('Mystery') ? 'selected': '' %>>Mystery</option>
+                        <option value="Romance" <%= genre.includes('Romance') ? 'selected': '' %>>Romance</option>
+                        <option value="Science Fiction" <%= genre.includes('Science Fiction') ? 'selected': '' %>>Sci-Fi</option>
+                        <option value="Thriller" <%= genre.includes('Thriller') ? 'selected': '' %>>Thriller</option>
+                        <option value="War" <%= genre.includes('War') ? 'selected': '' %>>War</option>
                         <!-- Add Other option with option to edit -->
                     </select>
                 </div>
                 <div class="mb-3">
                     <span class="form-label" for="formFile">Upload Image (Optional)</span>
                     <input name="upload_image" class="form-control" type="file" id="formFile" accept="image/*">
+                    <span><%= upload_image %></span>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="mb-5">
                     <label for="rating" class="form-label">Rate the Experience</label>
                     <select name="rating" class="form-select" id="rating">
-                        <option selected>Select a Rating</option>
-                        <option value="1">⭐⭐⭐⭐⭐ Absolutely Amazing!</option>
-                        <option value="2">⭐⭐⭐⭐ Really Enjoyed It!</option>
-                        <option value="3">⭐⭐⭐ Decent Watch</option>
-                        <option value="4">⭐⭐ Could Have Been Better</option>
-                        <option value="5">⭐ Not My Cup of Tea</option>
+                        <option <%= !rating ? 'selected': '' %>>Select a Rating</option>
+                        <option value="1" <%= rating === 5 ? 'selected': '' %>>⭐⭐⭐⭐⭐ Absolutely Amazing!</option>
+                        <option value="2" <%= rating === 4 ? 'selected': '' %>>⭐⭐⭐⭐ Really Enjoyed It!</option>
+                        <option value="3" <%= rating === 3 ? 'selected': '' %>>⭐⭐⭐ Decent Watch</option>
+                        <option value="4" <%= rating === 2 ? 'selected': '' %>>⭐⭐ Could Have Been Better</option>
+                        <option value="5" <%= rating === 1 ? 'selected': '' %>>⭐ Not My Cup of Tea</option>
                     </select>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Review (Optional)</span>
-                    <textarea name="review" class="form-control" rows="3" placeholder="Enter your review"></textarea>
+                    <textarea name="review" class="form-control" rows="3"><%= review ? review : '' %></textarea>
                 </div>
                 <div class="mb-5">
                     <label for="watchStatus" class="form-label">Watch Status</label>
                     <select name="watch_status" class="form-select" aria-label="Watch status" required>
-                        <option selected>Select Watch Status</option>
-                        <option value="Watched">Watched</option>
-                        <option value="Currently Watching">Currently Watching</option>
-                        <option value="On My Watchlist">On My Watchlist</option>
-                        <option value="Dropped It">Dropped It</option>
-                        <option value="Rewatching">Rewatching</option>
-                        <option value="Waiting for Release">Waiting for Release</option>
+                        <option >Select Watch Status</option>
+                        <option value="Watched" <%= watch_status.includes('Watched') ? 'selected' : '' %>>Watched</option>
+                        <option value="Currently Watching" <%= watch_status.includes('Currently Watching') ? 'selected' : '' %>>Currently Watching</option>
+                        <option value="On My Watchlist" <%= watch_status.includes('On My Watchlist') ? 'selected' : '' %>>On My Watchlist</option>
+                        <option value="Dropped It" <%= watch_status.includes('Dropped It') ? 'selected' : '' %>>Dropped It</option>
+                        <option value="Rewatching" <%= watch_status.includes('Rewatching') ? 'selected' : '' %>>Rewatching</option>
+                        <option value="Waiting for Release" <%= watch_status.includes('Waiting for Release') ? 'selected' : '' %>>Waiting for Release</option>
                     </select>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Watch Date (Optional)</span>
-                    <input type="date" name="watch_date" class="form-control" placeholder="DD/MM/YYYY">
+                    <input type="date" name="watch_date" class="form-control" value="<%= watch_date ? watch_date : '' %>">
                 </div>
                 <div class=" mb-3">
-                    <form action="/update" method="POST" class="d-inline">
+                    <form action="/add" method="POST" class="d-inline">
+                        <input type="hidden" name="id" value="<%= id %>">
                         <button type="submit" class="btn btn-primary w-100">Update</button>
                     </form>
+                    <!-- <a href="/movies" class="btn btn-sm btn-success">Go Back</a> -->
                 </div>
             </div>
         </form>
