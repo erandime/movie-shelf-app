@@ -1,11 +1,11 @@
 <%- include("partials/header") %>
-    <img src="images/movies.jpg" id="mobileImage" alt="Cinema hall seats" class="img-fluid">
+
     <div class="content">
-        <form class="row gy-4 gx-5 align-items-center">
+        <form action="/update" method="POST" class="row gy-4 gx-5 align-items-center">
             <div class="col-lg-6">
                 <div class="input-group mb-3">
                     <span class="input-group-text">Movie</span>
-                    <input type="text" name="movie_name" class="form-control" placeholder="<%= movie_name %>" required>
+                    <input type="text" name="movie_name" class="form-control" value="<%= movie_name %>" required>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text">Release Date(Optional)</span>
@@ -72,10 +72,8 @@
                     <input type="date" name="watch_date" class="form-control" value="<%= watch_date ? watch_date : '' %>">
                 </div>
                 <div class=" mb-3">
-                    <form action="/add" method="POST" class="d-inline">
-                        <input type="hidden" name="id" value="<%= id %>">
-                        <button type="submit" class="btn btn-primary w-100">Update</button>
-                    </form>
+                    <input type="hidden" name="id" value="<%= id %>">
+                    <button type="submit" class="btn btn-primary w-100">Update</button>
                     <!-- <a href="/movies" class="btn btn-sm btn-success">Go Back</a> -->
                 </div>
             </div>
