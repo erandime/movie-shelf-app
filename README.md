@@ -35,8 +35,8 @@ Before getting started, make sure you have the following installed:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/erandime/movie-shelf.git
-cd movie-shelf
+git clone https://github.com/erandime/movie-shelf-app.git
+cd movie-shelf-app
 ```
 
 2. Install dependencies:
@@ -55,7 +55,7 @@ DB_HOST=localhost
 DB_PORT=5432
 DB_USER=your-db-username
 DB_PASSWORD=your-db-password
-DB_NAME=movies
+DB_NAME=your-db-name
 
 5. Start the development server:
 
