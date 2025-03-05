@@ -87,10 +87,15 @@ footer {
         margin-left: 0;/*Hide sidebar space*/
         top: 4rem;
         width: 100vw;
-        position: static;
+        position: static;       
     }
+
     #myVideo {
-             display: none;
-             /* Hide video on small screens */
+        display: none;/* Hide video on small screens */
+    }
+
+    footer {
+        position: static;/* Let footer flow naturally with content */
+        margin-top: auto;
     }
 }
