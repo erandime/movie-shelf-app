@@ -28,9 +28,9 @@ app.get("/add", async (req, res) => {
 });
 
 app.get("/movies", async (req, res) => {
+  let movies = [];
   try {
     const result = await db.query("SELECT id, movie_name, genre, rating FROM movies ORDER BY id ASC;"  );
-    let movies = [];
     result.rows.forEach((movie) => {
     movies.push({
       id: movie.id,
@@ -42,7 +42,7 @@ app.get("/movies", async (req, res) => {
   res.render("movies.ejs", {movies});
   } catch (error) {
     console.log("Database query failed", error);
-    res.status(500).send("There was an error fetching the movies. Please try again later."); //Display error in future version
+    res.status(500).render("movies.ejs", {movies, error: "There was an error fetching the movies. Please try again later."});
   }  
 });
 
@@ -70,7 +70,7 @@ app.get("/view/:id", async (req, res) => {
 
   } catch (error) {
     console.log("Database query failed", error);
-    res.status(500).send("There was an error fetching the movie. Please try again later.");
+    res.status(500).render("movies.ejs", { movies: [], error: "There was an error fetching the movie. Please try again later." });
   }  
 });
 
@@ -95,7 +95,8 @@ app.post("/update", async (req, res) => {
     return res.render("view.ejs", { id, movie_name, release_date, overview, genre, upload_image, rating, review, watch_status, watch_date});
   } catch (error) {
     console.log("Database query failed", error);
-    res.status(500).send("Error in update. Please Try again later.");
+    res.status(500).render("view.ejs", { id, movie_name, release_date, overview, genre, upload_image, rating, review, watch_status, watch_date, error: "Error in update. Please try again later."
+    });  
   }  
 });
 
@@ -122,7 +123,7 @@ app.post("/add", async (req, res) => {
     });
   } catch (error) {
     console.log("Database query failed", error);
-    res.status(500).send("There was an error adding the movie. Please try again later.");
+    res.status(500).render("add.ejs", {error: "There was an error adding the movie. Please try again later.", movie_name, release_date, overview, genre, upload_image, rating, review, watch_status, watch_date}); 
   }  
 });
 

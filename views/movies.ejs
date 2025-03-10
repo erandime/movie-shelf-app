@@ -35,6 +35,14 @@
             </div>
         </div>   
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <% if (locals.error) { %>
+                <div class="alert alert-danger">
+                    <%= error %>
+                </div>
+            <% } else if (movies.length===0) { %>
+                <div class="alert alert-warning">No movies found. Add some to get started!</div>
+             <% } else { %>
+
             <% movies.forEach(function(movie) { %>
             <div class="col">
                 <div class="card shadow-sm">
@@ -56,17 +64,33 @@
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group ms-auto">
-                                <a href="/view/<%= movie.id %>" class="btn btn-sm btn-success">View</a>
-                                <form action="/delete" method="POST" class="d-inline">
-                                    <input type="hidden" name="id" value="<%= movie.id %>">
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button><!--Prompt to confirm delete-->
-                                </form>
+                                <a href="/view/<%= movie.id %>" class="btn btn-sm btn-success">View</a>                                
+                                <button type="button" class="btn btn-sm btn-danger" onclick="document.getElementById('modal-<%= movie.id %>').style.display='block'">Delete</button><!--Prompt to confirm delete-->
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>  
+                <div class="modal" tabindex="-1" id="modal-<%= movie.id %>">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body p-4 text-center">
+                                <h5 class="mb-0 text-dark">Are you sure you want to delete the movie?</h5>
+                            </div>
+                            <div class="modal-footer p-0 w-100">                                
+                                <div class="d-flex w-100">
+                                    <form action="/delete" method="POST" class="w-50">
+                                        <input type="hidden" name="id" value="<%= movie.id %>">
+                                        <button type="submit" class="btn btn-lg btn-link w-100 py-3 m-0 rounded-0">Yes</button>
+                                    </form>
+                                    <button type="button" class="btn btn-lg btn-link w-50 py-3 m-0 rounded-0" onclick="document.getElementById('modal-<%= movie.id %>').style.display='none'">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <% }); %>
+            <% }); %> 
+        <%}%>
         </div>
     </div>   
         

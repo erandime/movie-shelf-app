@@ -73,10 +73,14 @@
                 </div>
                 <div class=" mb-3">
                     <input type="hidden" name="id" value="<%= id %>">
-                    <button type="submit" class="btn btn-primary w-100">Update</button>
-                    <!-- <a href="/movies" class="btn btn-sm btn-success">Go Back</a> -->
+                    <button type="submit" class="btn btn-primary w-100">Update</button>                    
                 </div>
             </div>
+            <% if (locals.error) { %>
+                <div class="alert alert-danger">
+                    <%= error %>
+                </div>
+            <% } %>
         </form>
     </div>
 
