@@ -36,7 +36,7 @@
                 <div class="mb-3">
                     <span class="form-label" for="formFile">Upload Image (Optional)</span>
                     <input name="upload_image" class="form-control" type="file" id="formFile" accept="image/*">
-                    <span><%= upload_image %></span>
+                    <img src="<%= upload_image || '/default.jpg' %>" alt="Movie Image" style="border: 1px solid #ddd; border-radius: 4px; padding: 5px;  width: 150px;" />
                 </div>
             </div>
             <div class="col-lg-6">

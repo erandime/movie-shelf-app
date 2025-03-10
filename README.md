@@ -8,18 +8,13 @@ Movie Shelf is a movie rating website that allows users to view, rate, and manag
   - For larger screens, a sidebar navigation is displayed.
   - For smaller screens, the top navigation is used for better accessibility.
   - Video is displayed for larger screens, while images are used for smaller screens.
-  - Bootstrap and Media queries to ensure responsiveness for all elements across devices
-  
-- **Star Rating**: Users can rate movies using a star rating system.
-  
-- **CRUD Operations**: Users can Create, Read, Update, and Delete movie entries from the PostgreSQL database.
-  
+  - Bootstrap and Media queries to ensure responsiveness for all elements across devices  
+- **Star Rating**: Users can rate movies using a star rating system.  
+- **CRUD Operations**: Users can Create, Read, Update, and Delete movie entries from the PostgreSQL database.  
 - **Data Persistence**: Movie data is stored persistently in a PostgreSQL database.
-
-- **Express/Node.js**: The server-side logic is built with Express.js and Node.js.
-  
+- **Express/Node.js**: The server-side logic is built with Express.js and Node.js.  
 - **EJS Templating**: Views are rendered dynamically using EJS (Embedded JavaScript templates).The header and footer are reusable components (header.ejs, footer.ejs).
-  
+- **Error Handling**: Error handling is implemented to ensure smooth user experience even when things go wrong.
 - **ARIA Labels**: Accessibility is ensured with ARIA labels for screen readers.
 
 ## Prerequisites

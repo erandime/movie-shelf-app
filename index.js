@@ -1,7 +1,9 @@
 import express from "express";
+import multer from "multer"; //For handling file uploads.
 import bodyParser from "body-parser";
 import pg from "pg";
 import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config();
 const app = express();
@@ -16,8 +18,21 @@ const db = new pg.Client({
 });
 db.connect();
 
+// Set up multer for image uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/"); // Set upload directory
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)); // Generate unique file name
+  },
+});
+
+const upload = multer({ storage: storage });
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(express.static("uploads")); // To serve uploaded files
 
 app.get("/", async (req, res) => {
     res.render("index.ejs");
@@ -42,7 +57,7 @@ app.get("/movies", async (req, res) => {
   res.render("movies.ejs", {movies});
   } catch (error) {
     console.log("Database query failed", error);
-    res.status(500).render("movies.ejs", {movies, error: "There was an error fetching the movies. Please try again later."});
+    res.status(500).render("movies.ejs", {error: "There was an error fetching the movies. Please try again later."});
   }  
 });
 
@@ -70,7 +85,7 @@ app.get("/view/:id", async (req, res) => {
 
   } catch (error) {
     console.log("Database query failed", error);
-    res.status(500).render("movies.ejs", { movies: [], error: "There was an error fetching the movie. Please try again later." });
+    res.status(500).render("movies.ejs", {message: "There was an error fetching the movie. Please try again later." });
   }  
 });
 
@@ -105,7 +120,7 @@ app.post("/add", async (req, res) => {
     const release_date = req.body["release_date"] || null;
     const overview = req.body["overview"] || null;
     const genre = req.body["genre"];
-    const upload_image = req.body["upload_image"] || null;
+    const upload_image = req.file ? req.file.path : null;
     const rating = req.body["rating"] ? parseInt(req.body["rating"]) : null;
     const review = req.body["review"] || null;
     const watch_status = req.body["watch_status"];
@@ -137,7 +152,7 @@ app.post("/delete", async (req, res) => {
     res.redirect("/movies");
   } catch (error) {
     console.log("Database query failed", error);
-    res.status(500).send("There was an error deleting the movie. Please try again later.");
+    res.status(500).render("movies.ejs", {message: "There was an error deleting the movie. Please try again later."});
   }
 });
 
