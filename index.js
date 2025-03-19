@@ -45,13 +45,15 @@ app.get("/add", async (req, res) => {
 app.get("/movies", async (req, res) => {
   let movies = [];
   try {
-    const result = await db.query("SELECT id, movie_name, genre, rating FROM movies ORDER BY id ASC;"  );
+    const result = await db.query("SELECT id, movie_name, genre, rating, watch_status, created_at FROM movies ORDER BY id ASC;"  );
     result.rows.forEach((movie) => {
     movies.push({
       id: movie.id,
       movie_name: movie.movie_name,
       genre: movie.genre,
-      rating: movie.rating ? movie.rating : 0
+      rating: movie.rating ? movie.rating : 0,
+      watch_status: movie.watch_status,
+      date_added: movie.created_at
     });
   });
   res.render("movies.ejs", {movies});

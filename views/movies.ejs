@@ -1,101 +1,142 @@
 <%- include("partials/header") %>
 
-    <div class="content"> <!--Add Filter, sort, search functionality-->
-        <div class="row align-items-center mb-5">
-            <div class="col-lg-3 mb-3">
-                <div class="input-group">
-                    <label class="input-group-text" for="inputGroupSelect01">Filter</label>
-                    <select class="form-select" id="inputGroupSelect01">
-                        <option selected>All...</option>
-                        <option value="1">Watched</option>
-                        <option value="2">Currently Watching</option>
-                        <option value="3">Have to Watch</option>
-                    </select>
-                </div>
-            </div>           
-            <div class="col-lg-3 mb-3">
-                <div class="input-group">
-                    <label class="input-group-text" for="inputGroupSelect01">Sort</label>
-                    <select class="form-select" id="inputGroupSelect01">
-                        <option selected>Choose...</option>
-                        <option value="1">Rating (Highest Rated First)</option>
-                        <option value="2">Rating (Lowest Rated First)</option>
-                        <option value="3">Added Date (New to Old)</option>
-                        <option value="4">Added Date (Old to New)</option>
-                    </select>
-                </div>
-            </div> 
-            <div class="col-lg-1">&nbsp;</div>
-            <div class="col-lg-5 mb-3">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search Using Movie Name or Genre" aria-label="Search for a Movie">
-                    <button class="btn btn-primary" type="button">Search</button>
-                    <button class="btn btn-secondary" type="button">Reset</button>
-                </div>
+<div class="content">
+  <!--Add Filter, sort, search functionality-->
+  <div class="row align-items-center mb-5">
+    <div class="col-lg-3 mb-3">
+      <div class="input-group">
+        <label class="input-group-text" for="filter">Filter</label>
+        <select class="form-select" id="filter">
+          <option selected>All</option>
+          <option value="Watched">Watched</option>
+          <option value="Currently Watching">Currently Watching</option>
+          <option value="On My Watchlist">On My Watchlist</option>
+          <option value="Dropped It">Dropped It</option>
+          <option value="Rewatching">Rewatching</option>
+          <option value="Waiting for Release">Waiting for Release</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-3 mb-3">
+      <div class="input-group">
+        <label class="input-group-text" for="sort">Sort</label>
+        <select class="form-select" id="sort">
+          <option selected>Choose...</option>
+          <option value="1">Rating (Highest Rated First)</option>
+          <option value="2">Rating (Lowest Rated First)</option>
+          <option value="3">Added Date (New to Old)</option>
+          <option value="4">Added Date (Old to New)</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-1">&nbsp;</div>
+    <div class="col-lg-5 mb-3">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search Using Movie Name or Genre"
+          aria-label="Search for a Movie"
+        />
+        <button class="btn btn-primary" type="button" id="search-btn">
+          Search
+        </button>
+        <button class="btn btn-secondary" type="button" id="reset-btn">
+          Reset
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Display errors when  click View or Delete -->
+  <% if (locals.message) { %>
+  <div class="alert alert-danger"><%= message %></div>
+  <% }%>
+  <!--Display errors when retrieval of movies from db fails.-->
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <% if (locals.error) { %>
+    <div class="alert alert-danger"><%= error %></div>
+    <% } else if (movies.length===0) { %>
+    <div class="alert alert-warning">
+      No movies found. Add some to get started!
+    </div>
+    <% } else { %> <% movies.forEach(function(movie) { %>
+    <div class="col">
+      <div class="card shadow-sm">
+        <img
+          src="<%= movie.upload_image ? '/'+ movie.upload_image : '/default.jpg' %>"
+          class="card-img-top"
+          alt="<%= movie.movie_name %>"
+        />
+        <div class="card-body">
+          <div class="card-text">
+            <p>Movie Name: <%= movie.movie_name %></p>
+            <p>
+              Your Rating: <% for(let i = 1; i <= 5; i++){%>
+              <span
+                class="fa fa-star <%= i <= movie.rating ? 'checked' : '' %>"
+              ></span>
+              <% }; %>
+            </p>
+            <p>Watch Status: <%= movie.watch_status  %></p>
+            <p>Added On: <%= new Date(movie.date_added).toLocaleDateString()  %></p>
+            <p>Genre: <%= movie.genre.join(", ") %></p>
+            
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group ms-auto">
+              <a href="/view/<%= movie.id %>" class="btn btn-sm btn-success"
+                >View</a
+              >
+              <button
+                type="button"
+                class="btn btn-sm btn-danger"
+                onclick="document.getElementById('modal-<%= movie.id %>').style.display='block'"
+              >
+                Delete</button
+              ><!--Prompt to confirm delete-->
             </div>
-        </div>   
-        <!-- Display errors when  click View or Delete -->
-        <% if (locals.message) { %>
-            <div class="alert alert-danger">
-                <%= message %>
-            </div>
-            <% }%>
-        <!--Display errors when retrieval of movies from db fails.-->
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <% if (locals.error) { %>
-                <div class="alert alert-danger">
-                    <%= error %>
-                </div>
-            <% } else if (movies.length===0) { %>
-                <div class="alert alert-warning">No movies found. Add some to get started!</div>
-             <% } else { %>
-
-            <% movies.forEach(function(movie) { %>
-            <div class="col">
-                <div class="card shadow-sm">
-                    <img src="<%= movie.upload_image ? '/'+ movie.upload_image : '/default.jpg' %>" class="card-img-top"
-                        alt="<%= movie.movie_name %>">
-                    <div class="card-body">
-                        <div class="card-text">
-                            <p>Movie Name: <%= movie.movie_name  %></p>
-                            <p>Your Rating: 
-                                <% for(let i = 1; i <= 5; i++){%>
-                                    <span class="fa fa-star <%= i <= movie.rating ? 'checked' : '' %>"></span>
-                                <% }; %>
-                            </p>                            
-                            <p>Genre: <%= movie.genre.join(", ") %></p>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group ms-auto">
-                                <a href="/view/<%= movie.id %>" class="btn btn-sm btn-success">View</a>                                
-                                <button type="button" class="btn btn-sm btn-danger" onclick="document.getElementById('modal-<%= movie.id %>').style.display='block'">Delete</button><!--Prompt to confirm delete-->
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-                <!-- Pop up a modal to confirm deletion. -->
-                <div class="modal" tabindex="-1" id="modal-<%= movie.id %>">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-body p-4 text-center">
-                                <h5 class="mb-0 text-dark">Are you sure you want to delete the movie?</h5>
-                            </div>
-                            <div class="modal-footer p-0 w-100">                                
-                                <div class="d-flex w-100">
-                                    <form action="/delete" method="POST" class="w-50">
-                                        <input type="hidden" name="id" value="<%= movie.id %>">
-                                        <button type="submit" class="btn btn-lg btn-link w-100 py-3 m-0 rounded-0">Yes</button>
-                                    </form>
-                                    <button type="button" class="btn btn-lg btn-link w-50 py-3 m-0 rounded-0" onclick="document.getElementById('modal-<%= movie.id %>').style.display='none'">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <% }); %> 
-        <%}%>
+          </div>
         </div>
-    </div>   
-        
-    <%- include("partials/footer") %>
+      </div>
+      <!-- Pop up a modal to confirm deletion. -->
+      <div class="modal" tabindex="-1" id="modal-<%= movie.id %>">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body p-4 text-center">
+              <h5 class="mb-0 text-dark">
+                Are you sure you want to delete the movie?
+              </h5>
+            </div>
+            <div class="modal-footer p-0 w-100">
+              <div class="d-flex w-100">
+                <form action="/delete" method="POST" class="w-50">
+                  <input type="hidden" name="id" value="<%= movie.id %>" />
+                  <button
+                    type="submit"
+                    class="btn btn-lg btn-link w-100 py-3 m-0 rounded-0"
+                  >
+                    Yes
+                  </button>
+                </form>
+                <button
+                  type="button"
+                  class="btn btn-lg btn-link w-50 py-3 m-0 rounded-0"
+                  onclick="document.getElementById('modal-<%= movie.id %>').style.display='none'"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }); %> <%}%>
+  </div>
+  <!-- Hidden div to store movies -->
+   <div id="movies-data" style="display: none">
+  <%= JSON.stringify(locals.movies) %>
+</div>
+</div>
+
+<%- include("partials/footer") %>
